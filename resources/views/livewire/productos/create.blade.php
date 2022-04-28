@@ -62,15 +62,16 @@
             </div>
             <div class="form-group">
                 <label for="cant_entrada"></label>
-                <input wire:model.defer="cant_entrada" type="number" class="form-control" id="entrada" step="0.01" placeholder="Cant Entrada" onchange="restar()">@error('cant_entrada') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model.defer="cant_entrada" type="number" class="form-control" id="entrada" step="0.01" placeholder="Cant Entrada" >@error('cant_entrada') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="cant_salida"></label>
-                <input wire:model.defer="cant_salida" type="number" class="form-control" id="salida" step="0.01" placeholder="Cant Salida" onchange="restar()">@error('cant_salida') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model.defer="cant_salida" type="number" class="form-control" id="salida" step="0.01" placeholder="Cant Salida" onchange="restar()" >@error('cant_salida') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="saldo"></label>
-                <input wire:model.defer="saldo" type="number" class="form-control" id="sald" readonly step="0.01">@error('saldo') <span class="error text-danger">{{ $message }}</span> @enderror
+
+                <input wire:model="saldo" type="number" class="form-control" id="saldo" readonly step="0.01" >@error('saldo') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>
@@ -85,12 +86,11 @@
 <script>
     function restar() {
 
-     // Convertir el valor a un entero (número).
-    var num2=document.getElementById('salida').value;
-    var num1=document.getElementById('entrada').value;
+         var num2=document.getElementById('salida').value;
+         var num1=document.getElementById('entrada').value;
 
-        var total=num1 - num2;
-        return document.getElementById('sald').value = total;
+             var total=num1 - num2;
+             return document.getElementById('saldo').value = total;
 
     }
 </script>

@@ -18,20 +18,32 @@
 						<div>
 							<input wire:model='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search Productos">
 						</div>
+                        {{-- selectCatalogo --}}
+                        <label for="catalogo_id">Elegir Catalogo</label>
+                        <div >
+                            <select wire:model="selectCatalogo" class="form-control">
+                                <option value="">Todos</option>
+                                @foreach ( $catalogos as $catalogo )
+                                <option value="{{$catalogo->id}}">{{$catalogo->name_category}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{$selectCatalogo}}
+
 						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
 						<i class="fa fa-plus"></i>  Add Productos
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="card-body">
 						@include('livewire.productos.create')
 						@include('livewire.productos.update')
 				<div class="table-responsive">
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
-							<tr> 
-								<td>#</td> 
+							<tr>
+								<td>#</td>
 								<th>Catalogo Id</th>
 								<th>Fecha Ingreso</th>
 								<th>Fecha Salida</th>
@@ -50,9 +62,13 @@
 							</tr>
 						</thead>
 						<tbody>
+                            @php
+                                $total=0;
+                            @endphp
+
 							@foreach($productos as $row)
 							<tr>
-								<td>{{ $loop->iteration }}</td> 
+								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->catalogo_id }}</td>
 								<td>{{ $row->fecha_ingreso }}</td>
 								<td>{{ $row->fecha_salida }}</td>
@@ -73,14 +89,21 @@
 									Actions
 									</button>
 									<div class="dropdown-menu dropdown-menu-right">
-									<a data-toggle="modal" data-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a>							 
-									<a class="dropdown-item" onclick="confirm('Confirm Delete Producto id {{$row->id}}? \nDeleted Productos cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a>   
+									<a data-toggle="modal" data-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a>
+									<a class="dropdown-item" onclick="confirm('Confirm Delete Producto id {{$row->id}}? \nDeleted Productos cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a>
 									</div>
 								</div>
 								</td>
+                                @php
+                                    $total=$total+$row->saldo;
+                                @endphp
 							@endforeach
 						</tbody>
-					</table>						
+					</table>
+
+                        <div>
+                            <h1>Total es: {{$total}}</h1>
+                        </div>
 					{{ $productos->links() }}
 					</div>
 				</div>

@@ -12,34 +12,43 @@ class Productos extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $catalogo_id, $fecha_ingreso, $fecha_salida, $marca, $presentacion, $lote, $fecha_vencimiento, $resp_ingreso, $resp_salida, $precio_sin_igv, $area, $cant_entrada, $cant_salida, $saldo;
+    public $selected_id, $keyWord="", $selectCatalogo="", $catalogo_id, $fecha_ingreso, $fecha_salida, $marca, $presentacion, $lote, $fecha_vencimiento, $resp_ingreso, $resp_salida, $precio_sin_igv, $area, $cant_entrada, $cant_salida, $saldo;
     public $updateMode = false;
 
     public function mount(){
-      $this->catalogo_id='Elegir';
+      $this->catalogo_id="";
+
     }
 
     public function render()
     {
-		$keyWord = '%'.$this->keyWord .'%';
+        $this->saldo=$this->cant_entrada-$this->cant_salida;
+
         return view('livewire.productos.view', [
-            'productos' => Producto::latest()
-						->orWhere('catalogo_id', 'LIKE', $keyWord)
-						->orWhere('fecha_ingreso', 'LIKE', $keyWord)
-						->orWhere('fecha_salida', 'LIKE', $keyWord)
-						->orWhere('marca', 'LIKE', $keyWord)
-						->orWhere('presentacion', 'LIKE', $keyWord)
-						->orWhere('lote', 'LIKE', $keyWord)
-						->orWhere('fecha_vencimiento', 'LIKE', $keyWord)
-						->orWhere('resp_ingreso', 'LIKE', $keyWord)
-						->orWhere('resp_salida', 'LIKE', $keyWord)
-						->orWhere('precio_sin_igv', 'LIKE', $keyWord)
-						->orWhere('area', 'LIKE', $keyWord)
-						->orWhere('cant_entrada', 'LIKE', $keyWord)
-						->orWhere('cant_salida', 'LIKE', $keyWord)
-						->orWhere('saldo', 'LIKE', $keyWord)
-						->paginate(10),
             'catalogos'=> Catalogo::orderBy('name_category', 'asc')->get(),
+            'productos' => Producto::orderBy('marca', 'asc')
+                        ->selectfilter($this->selectCatalogo)
+                        // ->when($this->selectCatalogo, function($query){
+                        //     $query->where('catalogo_id',$this->selectCatalogo);
+                        // })
+                        ->search($this->keyWord)
+
+						// ->orwhere('fecha_ingreso', 'LIKE','%'.$this->keyWord .'%')
+						// ->orWhere('fecha_salida', 'LIKE', '%'.$this->keyWord .'%')
+						//->orWhere('marca', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('presentacion', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('lote', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('fecha_vencimiento', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('resp_ingreso', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('resp_salida', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('precio_sin_igv', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('area', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('cant_entrada', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('cant_salida', 'LIKE', '%'.$this->keyWord .'%')
+						// ->orWhere('saldo', 'LIKE', '%'.$this->keyWord .'%')
+
+						->paginate(10),
+
         ]);
     }
 
@@ -83,7 +92,7 @@ class Productos extends Component
 		'area' => 'required',
 		'cant_entrada' => 'required',
 		'cant_salida' => 'required',
-		'saldo' => 'required',
+		//'saldo' => 'required',
         ]);
 
         Producto::create([
@@ -147,7 +156,7 @@ class Productos extends Component
 		'area' => 'required',
 		'cant_entrada' => 'required',
 		'cant_salida' => 'required',
-		'saldo' => 'required',
+		//'saldo' => 'required',
         ]);
 
         if ($this->selected_id) {
@@ -182,4 +191,5 @@ class Productos extends Component
             $record->delete();
         }
     }
+
 }
