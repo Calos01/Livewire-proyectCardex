@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="catalogo_id">Elegir Catalogo</label>
                 <select wire:model="catalogo_id" class="form-control">
-                    <option value="Elegir" disabled>--Elegir Catalogo--</option>
+                    <option value="" disabled>--Elegir Catalogo--</option>
                     @foreach ( $catalogos as $catalogo )
                     <option value="{{$catalogo->id}}">{{$catalogo->name_category}}</option>
                     @endforeach
@@ -77,8 +77,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Save</button>
+                <button type="button" class="btn bg-red-500 hover:bg-red-700 text-white close-btn" data-dismiss="modal">Close</button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-primary bg-blue-500 close-modal">Save</button>
             </div>
         </div>
     </div>

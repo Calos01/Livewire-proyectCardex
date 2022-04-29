@@ -12,8 +12,14 @@
                 <form>
 					<input type="hidden" wire:model="selected_id">
             <div class="form-group">
-                <label for="catalogo_id"></label>
-                <input wire:model="catalogo_id" type="text" class="form-control" id="catalogo_id" placeholder="Catalogo Id">@error('catalogo_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                <label for="catalogo_id">Elegir Catalogo</label>
+                <select wire:model="catalogo_id" class="form-control">
+                    <option value="" disabled>--Elegir Catalogo--</option>
+                    @foreach ( $catalogos as $catalogo )
+                    <option value="{{$catalogo->id}}">{{$catalogo->name_category}}</option>
+                    @endforeach
+                </select>
+                @error('catalogo_id') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="fecha_ingreso"></label>
@@ -71,8 +77,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn bg-red-500 hover:bg-red-700 text-white" data-dismiss="modal">Close</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-primary bg-blue-500" data-dismiss="modal">Save</button>
             </div>
        </div>
     </div>

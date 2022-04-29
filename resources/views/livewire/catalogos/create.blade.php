@@ -12,14 +12,20 @@
 				<form>
             <div class="form-group">
                 <label for="name_category"></label>
-                <input wire:model="name_category" type="text" class="form-control" id="name_category" placeholder="Name Category">@error('name_category') <span class="error text-danger">{{ $message }}</span> @enderror
+                <select wire:model="name_category" class="form-control" id="name_category" placeholder="Name Category">
+                    <option value="">Elegir Catalogo</option>
+                    @foreach ($catalogos as $catalogo )
+                        <option value="{{$catalogo->id}}">{{$catalogo->name_category}}</option>
+                    @endforeach
+                </select>
+                @error('name_category') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Save</button>
+                <button type="button" class="btn bg-red-500 hover:bg-red-700 text-white close-btn" data-dismiss="modal">Close</button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-primary bg-blue-500 close-modal">Save</button>
             </div>
         </div>
     </div>

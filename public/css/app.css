@@ -2,6 +2,11 @@
  * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
+ body{
+    background-image: url('https://www.elhospital.com/documenta/imagenes/140827/crisis-financiera-hospitales-argentina-gr.jpg');
+    background-size: cover;
+    height: 100%;
+ }
 .fa,
 .fas,
 .far,

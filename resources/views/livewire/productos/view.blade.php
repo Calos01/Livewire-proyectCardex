@@ -85,7 +85,7 @@
 								<td>{{ $row->saldo }}</td>
 								<td width="90">
 								<div class="btn-group">
-									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button type="button" class="btn btn-sm bg-cyan-300 hover:bg-cyan-600 hover:text-white dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Actions
 									</button>
 									<div class="dropdown-menu dropdown-menu-right">

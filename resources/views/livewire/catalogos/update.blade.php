@@ -13,14 +13,20 @@
 					<input type="hidden" wire:model="selected_id">
             <div class="form-group">
                 <label for="name_category"></label>
-                <input wire:model="name_category" type="text" class="form-control" id="name_category" placeholder="Name Category">@error('name_category') <span class="error text-danger">{{ $message }}</span> @enderror
+                <select wire:model="name_category" class="form-control" id="name_category" placeholder="Name Category">
+                    <option value="">Elegir Catalogo</option>
+                    @foreach ($catalogos as $catalogo )
+                        <option value="{{$catalogo->id}}">{{$catalogo->name_category}}</option>
+                    @endforeach
+                </select>
+                @error('name_category') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn bg-red-500 hover:bg-red-700 text-white close-btn" data-dismiss="modal">Close</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-primary bg-blue-500" data-dismiss="modal">Save</button>
             </div>
        </div>
     </div>
